@@ -2,9 +2,9 @@ FROM alpine
 
 # Ignore to update versions here
 # docker build --no-cache --build-arg KUBECTL_VERSION=${kubectl} --build-arg HELM_VERSION=${helm} --build-arg DOCTL_VERION=${doctl} -t ${image}:${tag} .
-ARG HELM_VERSION=3.2.1
-ARG KUBECTL_VERSION=1.21.3
-ARG DOCTL_VERSION=1.62.0
+ARG HELM_VERSION=3.11.2
+ARG KUBECTL_VERSION=1.26.3
+ARG DOCTL_VERSION=1.93.1
 
 # Install helm (latest release)
 # ENV BASE_URL="https://storage.googleapis.com/kubernetes-helm"
@@ -26,5 +26,7 @@ RUN apk add --update --no-cache tar && \
   curl -sL https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-linux-amd64.tar.gz |tar xvz -C /usr/bin && \
   chmod +x /usr/bin/doctl && \
   apk del tar
+
+RUN apk add openssh
 
 WORKDIR /apps
